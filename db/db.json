@@ -1,1 +1,12 @@
-[{"title":"Title1","text":"Test text1","id":12345712},{"title":"Test Express","text":"Testing express app","id":"06f6aa9f-7857-4f11-bd56-468c5b6c7061"}]
+[
+  {
+    "title": "test 3",
+    "text": "this is test 3",
+    "id": "911604bd-6960-40cd-b531-a28d3c6d09e0"
+  },
+  {
+    "title": "delete 2",
+    "text": "test 2",
+    "id": "06e81f65-2bf5-4587-91aa-4d98995c7366"
+  }
+]

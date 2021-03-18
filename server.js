@@ -6,7 +6,7 @@ const path = require('path');
 const { v4: uuidv4 } = require('uuid');
 const fs =require('fs');
 
-let data=JSON.parse(fs.readFileSync('./db/db.json', 'utf8'))
+var data=JSON.parse(fs.readFileSync('./db/db.json', 'utf8'))
 
 // Sets up the Express App
 
@@ -46,7 +46,7 @@ app.post('/api/notes', (req, res) => {
     newNote.id=uuidv4();
   
     data.push(newNote);
-    fs.writeFileSync('./db/db.json', JSON.stringify(data));
+    fs.writeFileSync('./db/db.json', JSON.stringify(data, null, 2));
     res.json(data);
   });
 
@@ -54,16 +54,23 @@ app.post('/api/notes', (req, res) => {
 //   Delete Notes
 
 app.delete('/api/notes/:id',(req,res)=>{
-    const chosenId=req.params.id.toString();
-    console.log(chosenId);
+    let chosenid = req.params.id.toString();
+    console.log(chosenid);
     let data=JSON.parse(fs.readFileSync('./db/db.json', 'utf8'))
-    for (let i=0; i < data.length; i++){
-        if(chosenId === data[i].id.toString()){
-            data.splice(i,1);
-        }
-    }
-    fs.writeFileSync('./db/db.json', JSON.stringify(data));
+    const newData=data.filter(note=>note.id.toString() !== chosenid);
+    fs.writeFileSync('./db/db.json', JSON.stringify(newData, null,2));
     res.json(data);
+
+    // const chosenId=req.params.id.toString();
+    // console.log(chosenId);
+    // let data=JSON.parse(fs.readFileSync('./db/db.json', 'utf8'))
+    // for (let i=0; i < data.length; i++){
+    //     if(chosenId === data[i].id.toString()){
+    //         data.splice(i,1);
+    //     }
+    // }
+    // fs.writeFileSync('./db/db.json', JSON.stringify(data, null,2));
+    // res.status(201).json(data);
 })
 
 
