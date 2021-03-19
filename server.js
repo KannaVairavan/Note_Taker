@@ -6,7 +6,7 @@ const path = require('path');
 const { v4: uuidv4 } = require('uuid');
 const fs =require('fs');
 
-var data=JSON.parse(fs.readFileSync('./db/db.json', 'utf8'))
+
 
 // Sets up the Express App
 
@@ -33,7 +33,12 @@ app.get('/notes', (req, res) => {
 
 
 // Displays all notes
-app.get('/api/notes', (req, res) => res.json(data));
+app.get('/api/notes', (req, res) =>{
+
+    let data=JSON.parse(fs.readFileSync('./db/db.json', 'utf8'));
+    console.log("api notes GET request - Returning notes data: " + JSON.stringify(data));
+    res.json(data)
+});
 
 
 // Create New Notes - takes in JSON input
@@ -42,25 +47,36 @@ app.post('/api/notes', (req, res) => {
     // This works because of our body parsing middleware
     const newNote = (req.body);
     console.log (newNote);
-   
+    let data=JSON.parse(fs.readFileSync('./db/db.json', 'utf8'));
     newNote.id=uuidv4();
-  
     data.push(newNote);
     fs.writeFileSync('./db/db.json', JSON.stringify(data, null, 2));
     res.json(data);
+    
   });
 
 
 //   Delete Notes
 
 app.delete('/api/notes/:id',(req,res)=>{
-    let chosenid = req.params.id.toString();
+    let chosenid = req.params.id;
     console.log(chosenid);
-    let data=JSON.parse(fs.readFileSync('./db/db.json', 'utf8'))
-    const newData=data.filter(note=>note.id.toString() !== chosenid);
-    fs.writeFileSync('./db/db.json', JSON.stringify(newData, null,2));
-     res.json(newData);
-
+    let noteData=JSON.parse(fs.readFileSync('./db/db.json', 'utf8'));
+    // noteData=noteData.filter(note=>note.id !== chosenid);
+    for (let i=0; i < noteData.length; i++){
+            if(noteData[i].id === chosenid ){
+                noteData.splice(i,1);
+                break
+            }
+        }
+    console.log(noteData);
+    fs.writeFileSync('./db/db.json', JSON.stringify(noteData, null,2),(error)=>{
+        if(error){
+            console.error(error);
+        }
+    });
+  
+    res.end();
     // const chosenId=req.params.id.toString();
     // console.log(chosenId);
     // let data=JSON.parse(fs.readFileSync('./db/db.json', 'utf8'))
