@@ -26,7 +26,7 @@ Below is the walkthrough video that demonstrates the functionality of the Note T
 
 <img src="./assets/NoteTaker.gif" alt="Readme video"  >
 
-## Ouput
+## Ouput HTML file image
 
 ### <img src="./assets/noteTaker.PNG" alt="Teamlist" width=70%>
 
