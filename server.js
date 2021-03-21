@@ -70,6 +70,7 @@ app.delete('/api/notes/:id',(req,res)=>{
             }
         }
     console.log(noteData);
+    // save file
     fs.writeFileSync('./db/db.json', JSON.stringify(noteData, null,2),(error)=>{
         if(error){
             console.error(error);
@@ -77,16 +78,7 @@ app.delete('/api/notes/:id',(req,res)=>{
     });
   
     res.end();
-    // const chosenId=req.params.id.toString();
-    // console.log(chosenId);
-    // let data=JSON.parse(fs.readFileSync('./db/db.json', 'utf8'))
-    // for (let i=0; i < data.length; i++){
-    //     if(chosenId === data[i].id.toString()){
-    //         data.splice(i,1);
-    //     }
-    // }
-    // fs.writeFileSync('./db/db.json', JSON.stringify(data, null,2));
-    // res.status(201).json(data);
+    
 })
 
 
