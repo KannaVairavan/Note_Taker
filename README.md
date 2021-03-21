@@ -24,7 +24,7 @@ This application is using db.JSON file on the back end that will be used to stor
 
 Below is the walkthrough video that demonstrates the functionality of the Note Taker app.<br/>
 
-<img src="./assets/noteTaker.gif" alt="Readme video"  >
+<img src="./assets/NoteTaker.gif" alt="Readme video"  >
 
 ## Ouput
 
